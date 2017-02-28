@@ -5,7 +5,7 @@ var mailer = require('./mailer');
 /*
 *
 *
-* Don't forget to change the callback URL you fucking idiot.
+* Don't forget to change the callback URL you idiot.
 *
 *
 */
