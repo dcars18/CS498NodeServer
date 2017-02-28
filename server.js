@@ -17,8 +17,8 @@ var mailer = require('./mailer');
 // with a user object, which will be set at `req.user` in route handlers after
 // authentication.
 passport.use(new Strategy({
-    clientID: askDave,
-    clientSecret: 'DONT PUT THIS ON GIT',
+    clientID: 1037528376351199,
+    clientSecret: '28ab4929a0970fcc8411522e5f3675ba',
     //This is important for Valid OAuth redirect URIs on Facebook Developers webpage
     callbackURL: 'http://10.20.9.119:3000/login/facebook/return',
     profileFields: ['id', 'displayName', 'email']
