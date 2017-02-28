@@ -5,8 +5,8 @@ const nodemailer = require('nodemailer');
 let transporter = nodemailer.createTransport({
 	service: 'gmail',
 	auth: {
-		user: 'groupernotification@gmail.com',
-		pass: 'Grouper01'
+		user: 'user@gmail.com',
+		pass: 'pass'
 	}
 });
 
