@@ -8,7 +8,7 @@ const nodemailer = require('nodemailer');
 */
 var fs = require('fs');
 var gmailAppInfo = fs.readFileSync('GmailAppInfo.txt', 'utf8');
-
+gmailAppInfo = gmailAppInfo.split('\n');
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
 	service: 'gmail',
