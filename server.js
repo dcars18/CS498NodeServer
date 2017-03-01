@@ -10,7 +10,7 @@ var mailer = require('./mailer');
 */
 fs = require('fs');
 var facebookAppInfo = fs.readFileSync('FacebookAppInfo.txt', 'utf8');
-//console.log(facebookAppInfo);
+facebookAppInfo = facebookAppInfo.split('\n');
 /*
 * Don't forget to change the callback URL you idiot.
 */
