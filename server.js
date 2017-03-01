@@ -2,12 +2,17 @@ var express = require('express');
 var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
 var mailer = require('./mailer');
+
+/* 
+*  Get the app info here because I don't want this to be on GitHub
+*  Ask Dave for this information and don't upload the file to GitHub...
+*  I will deny your pull request if you have this info in your directory.
+*/
+fs = require('fs');
+var facebookAppInfo = fs.readFileSync('FacebookAppInfo.txt', 'utf8');
+//console.log(facebookAppInfo);
 /*
-*
-*
 * Don't forget to change the callback URL you idiot.
-*
-*
 */
 // Configure the Facebook strategy for use by Passport.
 //
@@ -17,10 +22,10 @@ var mailer = require('./mailer');
 // with a user object, which will be set at `req.user` in route handlers after
 // authentication.
 passport.use(new Strategy({
-    clientID: 1037528376351199,
-    clientSecret: '28ab4929a0970fcc8411522e5f3675ba',
+    clientID: facebookAppInfo[0],
+    clientSecret: facebookAppInfo[1].toString(),
     //This is important for Valid OAuth redirect URIs on Facebook Developers webpage
-    callbackURL: 'http://10.20.9.119:3000/login/facebook/return',
+    callbackURL: 'http://localhost:3000/login/facebook/return',
     profileFields: ['id', 'displayName', 'email']
   },
   function(accessToken, refreshToken, profile, cb) {
@@ -108,5 +113,4 @@ app.get('/Hello',
 
 app.listen(3000, '0.0.0.0', function() {
   console.log('Listening to port:  ' + 3000);
-  console.log("How do you do?");
 });

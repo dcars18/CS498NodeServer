@@ -1,12 +1,20 @@
 'use strict';
 const nodemailer = require('nodemailer');
 
+/* 
+*  Get the app info here because I don't want this to be on GitHub
+*  Ask Dave for this information and don't upload the file to GitHub...
+*  I will deny your pull request if you have this info in your directory.
+*/
+var fs = require('fs');
+var gmailAppInfo = fs.readFileSync('GmailAppInfo.txt', 'utf8');
+
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
 	service: 'gmail',
 	auth: {
-		user: 'groupernotification@gmail.com',
-		pass: 'Grouper01'
+		user: gmailAppInfo[0].toString(),
+		pass: gmailAppInfo[1].toString()
 	}
 });
 
