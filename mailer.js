@@ -42,5 +42,20 @@ module.exports = {
 	tester: function(emailAddress){
 		mailOptions.to = emailAddress;
 		console.log(mailOptions.to);
+	},
+	sendAddUserNotification: function(eventObj, addObj){
+
+		mailOptions.to = eventObj[0].eventCreator
+		console.log(mailOptions.to);
+		mailOptions.subject = "New Person Coming To Your Event!!"
+		mailOptions.text = "Hello!\n "+addObj.name+" was added to your event:"+eventObj[0].eventName+
+		" on "+addObj.eventDate+". To get in contact with them to make a plan you can email them at: "+addObj.email+
+		"! \n\n Thank You, \n\t Grouper Notifications"
+		transporter.sendMail(mailOptions, (error, info) => {
+		if (error) {
+			return console.log(error);
+		}
+		console.log('Message %s sent: %s', info.messageId, info.response);
+	});
 	}
 };

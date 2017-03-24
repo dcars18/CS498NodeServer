@@ -118,7 +118,6 @@ module.exports = {
         });
     },
     getAllUsersForEvent:function(allUsers, callback){
-        console.log(allUsers);
         var collection = _db.collection("GoingTo");
         collection.find({ eventID: allUsers.eventID }).toArray( function(err, results){
             if(err)
@@ -128,6 +127,19 @@ module.exports = {
             else
             {
                 console.log("All Users Successfully Returned");
+                callback(results);
+            }
+        });
+    },
+    getEvent: function(obj, callback){
+        var collection = _db.collection("Events");
+        collection.find({_id: mongodb.ObjectID(obj.eventID)}).toArray(function(err, results){
+            if(err)
+            {
+                callback(err)
+            }
+            else
+            {
                 callback(results);
             }
         });

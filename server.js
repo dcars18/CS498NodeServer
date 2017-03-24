@@ -178,8 +178,14 @@ app.delete("/eventServices/deleteEvent",
     var userAddObj = req.body;
 
     database.addUserToEvent(userAddObj, function(results){
-      res.statusCode=200;
-      res.send("User Successfully Added to Event");
+      
+      database.getEvent(userAddObj, function(results){
+        //console.log(results)
+        mailer.sendAddUserNotification(results, userAddObj);
+        res.statusCode=200;
+        res.send("User Successfully Added to Event");
+
+      });
     })
 
   });
