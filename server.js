@@ -2,8 +2,10 @@ var express = require('express');
 var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
 var mailer = require('./mailer');
+var database = require('./database');
 
 var eventIdGen = 0;
+var db;
 
 //This is how I expect to receive information about events. I generate your system number.
 // var testEvent = {
@@ -19,7 +21,8 @@ var eventIdGen = 0;
 // 	"eventCreator": "dacarson@insightbb.com"
 // }
 
-var testAllEvents = [];      
+var simulatedEventTable = [];
+var simulatedGoingToTable = [];    
 
 /* 
 *  Get the app info here because I don't want this to be on GitHub
@@ -134,14 +137,10 @@ app.post("/eventServices/createEvent",
   //require('connect-ensure-login').ensureLoggedIn(),
   function(req, res){
     var event = req.body;
-    eventIdGen++;
-    event.idNum = eventIdGen;
-    
-    testAllEvents.push(event);
-    console.log(testAllEvents);
-
-    res.statusCode = 200;
-    res.send("Successfully added Event");
+    database.insertEvent(event, function(){
+          res.statusCode = 200;
+          res.send("Successfully added Event");
+    });
   });
 
 //This route requires an object to be sent with an idNum field and an eventCreator field.
@@ -150,32 +149,57 @@ app.delete("/eventServices/deleteEvent",
   //require('connect-ensure-login').ensureLoggedIn(),
   function(req, res){
     var deleteObj = req.body;
+    database.deleteEvent(deleteObj, function(){
+      res.statusCode=200;
+      res.send("Successfully deleted Event");
+    });
     
-    for(var i = 0; i < testAllEvents.length; i++)
-    {
-      if(testAllEvents[i].idNum == deleteObj.idNum && testAllEvents[i].eventCreator == deleteObj.eventCreator)
-      {
-        testAllEvents.splice(i, 1);
-        console.log("Delete Happened.");
-        res.statusCode = 200;
-        res.send("Successfully deleted Event.");
-      }
-    }
-    res.statusCode = 400;
-    res.send("Bad Request.");
-
   });
 
   //Return All Events that currently exist in the system.
   app.get("/eventServices/getAllEvents",
-  //require('connect-ensure-login').ensureLoggedIn(),
-  function(req, res){
+    //require('connect-ensure-login').ensureLoggedIn(),
+    function(req, res){
 
     res.statusCode = 200;
-    res.json(testAllEvents);
+    var obj = database.showAllEvents(function(results){
+      console.log(results);
+      res.json(results);
+    });
+    
+    //res.json(JSON.stringify(database.showAllEvents()));
+
+  });
+
+  //This service requires an object with an idNum and email field.
+  //If the user is already going to this event then don't add them again.
+  app.post("/userServices/addUserToEvent",
+    //require('connect-ensure-login').ensureLoggedIn(),
+    function(req, res){
+
+    var userAddObj = req.body;
+
+    database.addUserToEvent(userAddObj, function(results){
+      res.statusCode=200;
+      res.send("User Successfully Added to Event");
+    })
+
+  });
+
+  app.post("/userServices/removeUserFromEvent",
+    //require('connect-ensure-login').ensureLoggedIn(),
+    function(req, res){
+
+    var deleteObj = req.body;
+
+    database.removeUserFromEvent(deleteObj, function(results){
+      res.statusCode=200;
+      res.send("User Successfully Added to Event");
+    })
 
   });
 
 app.listen(3000, '0.0.0.0', function() {
+  database.connect();
   console.log('Listening to port:  ' + 3000);
 });
