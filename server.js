@@ -163,11 +163,9 @@ app.delete("/eventServices/deleteEvent",
 
     res.statusCode = 200;
     var obj = database.showAllEvents(function(results){
-      console.log(results);
+      //console.log(results);
       res.json(results);
     });
-    
-    //res.json(JSON.stringify(database.showAllEvents()));
 
   });
 
@@ -186,7 +184,7 @@ app.delete("/eventServices/deleteEvent",
 
   });
 
-  app.post("/userServices/removeUserFromEvent",
+  app.delete("/userServices/removeUserFromEvent",
     //require('connect-ensure-login').ensureLoggedIn(),
     function(req, res){
 
@@ -194,7 +192,21 @@ app.delete("/eventServices/deleteEvent",
 
     database.removeUserFromEvent(deleteObj, function(results){
       res.statusCode=200;
-      res.send("User Successfully Added to Event");
+      res.send("User Removed Added to Event");
+    })
+
+  });
+
+  app.post("/userServices/getAllUsersForEvent",
+    //require('connect-ensure-login').ensureLoggedIn(),
+    function(req, res){
+
+    var allUsers = req.body;
+    console.log(allUsers);
+
+    database.getAllUsersForEvent(allUsers, function(results){
+      res.statusCode=200;
+      res.json(results);
     })
 
   });

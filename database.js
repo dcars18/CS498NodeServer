@@ -76,7 +76,8 @@ module.exports = {
     },
     deleteEvent:function(deleteObj, callback){
         var collection = _db.collection("Events");
-        collection.deleteOne({ deleteObj }, function(err, result){
+        console.log(deleteObj._id)
+        collection.deleteOne({ _id: new mongodb.ObjectID(deleteObj._id) }, function(err, result){
             if(err)
             {
                 console.log(err);
@@ -91,7 +92,7 @@ module.exports = {
     },
     addUserToEvent:function(addObj, callback){
         var collection = _db.collection("GoingTo");
-        collection.update(addObj, addObj, {upsert:true}, function(err, result){
+        collection.insert(addObj, function(err, result){
             if(err)
             {
                 callback(err);
@@ -104,7 +105,7 @@ module.exports = {
     },
     removeUserFromEvent:function(deleteObj, callback){
         var collection = _db.collection("GoingTo");
-        collection.deleteOne(deleteObj, function(err, result){
+        collection.deleteOne({ eventID: deleteObj.eventID, email: deleteObj.email }, function(err, result){
             if(err)
             {
                 callback(err);
@@ -113,6 +114,21 @@ module.exports = {
             {
                 console.log("User Successfully Removed From Event");
                 callback(null);
+            }
+        });
+    },
+    getAllUsersForEvent:function(allUsers, callback){
+        console.log(allUsers);
+        var collection = _db.collection("GoingTo");
+        collection.find({ eventID: allUsers.eventID }).toArray( function(err, results){
+            if(err)
+            {
+                callback(err);
+            }
+            else
+            {
+                console.log("All Users Successfully Returned");
+                callback(results);
             }
         });
     }
