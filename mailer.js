@@ -21,7 +21,7 @@ let transporter = nodemailer.createTransport({
 
 // setup email data with unicode symbols
 let mailOptions = {
-	from: '"Grouper Notifications 👻" <GrouperNotifications@gmail.com>', // sender address
+	from: '"🐟 Grouper Notifications 🐟" <GrouperNotifications@gmail.com>', // sender address
 	to: 'deca222@g.uky.edu', // list of receivers
 	subject: 'Hello ✔', // Subject line
 	text: 'Hello world ?', // plain text body
@@ -48,9 +48,12 @@ module.exports = {
 		mailOptions.to = eventObj[0].eventCreator
 		console.log(mailOptions.to);
 		mailOptions.subject = "New Person Coming To Your Event!!"
-		mailOptions.text = "Hello!\n "+addObj.name+" was added to your event:"+eventObj[0].eventName+
+		mailOptions.text = "Hello Grouper User!\n "+addObj.name+" was added to your event:"+eventObj[0].eventName+
 		" on "+addObj.eventDate+". To get in contact with them to make a plan you can email them at: "+addObj.email+
 		"! \n\n Thank You, \n\t Grouper Notifications"
+		mailOptions.html = '<b>Hello Grouper User!</b><br><br>' +addObj.name+" was added to your event:\'"+eventObj[0].eventName+
+		"\' on "+addObj.eventDate+". To get in contact with them send them an email at: "+addObj.email+
+		"! <br><br> Thank You,<br>Grouper Notifications"
 		transporter.sendMail(mailOptions, (error, info) => {
 		if (error) {
 			return console.log(error);
