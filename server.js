@@ -198,7 +198,7 @@ app.delete("/eventServices/deleteEvent",
 
     database.removeUserFromEvent(deleteObj, function(results){
       res.statusCode=200;
-      res.send("User Removed Added to Event");
+      res.send("User Removed Successfully From Event");
     })
 
   });
@@ -221,3 +221,4 @@ app.listen(3000, '0.0.0.0', function() {
   database.connect();
   console.log('Listening to port:  ' + 3000);
 });
+//Comment

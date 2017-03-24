@@ -104,6 +104,7 @@ module.exports = {
         });
     },
     removeUserFromEvent:function(deleteObj, callback){
+        console.log(deleteObj);
         var collection = _db.collection("GoingTo");
         collection.deleteOne({ eventID: deleteObj.eventID, email: deleteObj.email }, function(err, result){
             if(err)
