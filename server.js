@@ -14,10 +14,6 @@ var db;
 fs = require('fs');
 var facebookAppInfo = fs.readFileSync('FacebookAppInfo.txt', 'utf8');
 facebookAppInfo = facebookAppInfo.split('\n');
-<<<<<<< HEAD
-//console.log(facebookAppInfo);
-=======
->>>>>>> f2b2e5f2bb077f127330d6b3688e7573e644af03
 /*
 * Don't forget to change the callback URL you idiot.
 */
