@@ -4,25 +4,7 @@ var Strategy = require('passport-facebook').Strategy;
 var mailer = require('./mailer');
 var database = require('./database');
 
-var eventIdGen = 0;
 var db;
-
-//This is how I expect to receive information about events. I generate your system number.
-// var testEvent = {
-// 	"eventName": "Test Event",
-// 	"eventType": 2,
-// 	"eventLocation": {
-// 		"lat": 0.0,
-// 		"long": 0.0
-// 	},
-// 	"eventDescription": "This is a test event...",
-// 	"eventStartDate": "03-21-2017",
-// 	"eventEndDate": "03-22-2017",
-// 	"eventCreator": "dacarson@insightbb.com"
-// }
-
-var simulatedEventTable = [];
-var simulatedGoingToTable = [];    
 
 /* 
 *  Get the app info here because I don't want this to be on GitHub
