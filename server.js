@@ -199,8 +199,18 @@ app.delete("/eventServices/deleteEvent",
 
   });
 
+  app.post("/eventServices/getAllEventInfo", 
+  function(req, res){
+      var allData = req.body;
+      console.log(allData);
+
+      database.getAllEventInfo(allData, function(results){
+        res.statusCode = 200;
+        res.json(results);
+      })
+  });
+
 app.listen(3000, '0.0.0.0', function() {
   database.connect();
   console.log('Listening to port:  ' + 3000);
 });
-//Comment

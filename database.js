@@ -144,6 +144,19 @@ module.exports = {
                 callback(results);
             }
         });
+    },
+    getAllEventInfo: function(obj, callback){
+        var collection = _db.collection("Events");
+        collection.find({_id: mongodb.ObjectID(obj.eventID)}).toArray(function(err, results){
+            if(err)
+            {
+                callback(err)
+            }
+            else
+            {
+                callback(results);
+            }
+        });
     }
 
 };
