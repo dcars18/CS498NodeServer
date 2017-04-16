@@ -172,7 +172,7 @@ app.delete("/eventServices/deleteEvent",
 
   });
 
-  app.delete("/userServices/removeUserFromEvent",
+  app.post("/userServices/removeUserFromEvent",
     //require('connect-ensure-login').ensureLoggedIn(),
     function(req, res){
 
