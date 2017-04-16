@@ -127,7 +127,7 @@ app.post("/eventServices/createEvent",
 
 //This route requires an object to be sent with an idNum field and an eventCreator field.
 //If both of these fields dont match a single entry in the array its not getting deleted.
-app.delete("/eventServices/deleteEvent",
+app.post("/eventServices/deleteEvent",
   //require('connect-ensure-login').ensureLoggedIn(),
   function(req, res){
     var deleteObj = req.body;
