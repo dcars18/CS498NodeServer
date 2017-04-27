@@ -43,7 +43,7 @@ var _db;
 
 module.exports = {
   connect: function( callback ) {
-    MongoClient.connect( "mongodb://localhost:27017/mydb", function( err, db ) {
+    MongoClient.connect( "mongodb://pen.cs.uky.edu:19000/mydb", function( err, db ) {
       _db = db;
       console.log("Connected to database");
     });
@@ -133,6 +133,19 @@ module.exports = {
         });
     },
     getEvent: function(obj, callback){
+        var collection = _db.collection("Events");
+        collection.find({_id: mongodb.ObjectID(obj.eventID)}).toArray(function(err, results){
+            if(err)
+            {
+                callback(err)
+            }
+            else
+            {
+                callback(results);
+            }
+        });
+    },
+    getAllEventInfo: function(obj, callback){
         var collection = _db.collection("Events");
         collection.find({_id: mongodb.ObjectID(obj.eventID)}).toArray(function(err, results){
             if(err)

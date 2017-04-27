@@ -127,7 +127,7 @@ app.post("/eventServices/createEvent",
 
 //This route requires an object to be sent with an idNum field and an eventCreator field.
 //If both of these fields dont match a single entry in the array its not getting deleted.
-app.delete("/eventServices/deleteEvent",
+app.post("/eventServices/deleteEvent",
   //require('connect-ensure-login').ensureLoggedIn(),
   function(req, res){
     var deleteObj = req.body;
@@ -172,7 +172,7 @@ app.delete("/eventServices/deleteEvent",
 
   });
 
-  app.delete("/userServices/removeUserFromEvent",
+  app.post("/userServices/removeUserFromEvent",
     //require('connect-ensure-login').ensureLoggedIn(),
     function(req, res){
 
@@ -199,8 +199,18 @@ app.delete("/eventServices/deleteEvent",
 
   });
 
+  app.post("/eventServices/getAllEventInfo", 
+  function(req, res){
+      var allData = req.body;
+      console.log(allData);
+
+      database.getAllEventInfo(allData, function(results){
+        res.statusCode = 200;
+        res.json(results);
+      })
+  });
+
 app.listen(3000, '0.0.0.0', function() {
   database.connect();
   console.log('Listening to port:  ' + 3000);
 });
-//Comment
