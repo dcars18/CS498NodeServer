@@ -92,14 +92,26 @@ module.exports = {
     },
     addUserToEvent:function(addObj, callback){
         var collection = _db.collection("GoingTo");
-        collection.insert(addObj, function(err, result){
+        collection.update(addObj, addObj, {upsert:true}, function(err, result){
             if(err)
             {
                 callback(err);
             }
             else
             {
-                callback(null);
+                var inserted;
+                if(result.result.nModified == 0)
+                {
+                    //console.log("UPSERT HAPPENED");
+                    inserted = true;
+                    callback(inserted);
+                }
+                else
+                {
+                    //console.log("UPSERT DIDNT HAPPEN");
+                    inserted = false;
+                    callback(inserted);
+                }
             }
         });
     },
