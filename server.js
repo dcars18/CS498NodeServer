@@ -166,13 +166,13 @@ app.post("/eventServices/deleteEvent",
           //console.log(results)
           mailer.sendAddUserNotification(results, userAddObj);
           res.statusCode=200;
-          res.json(true);
+          res.json({alreadyJoined: false});
         });
       }
       else
       {
         res.statusCode=200;
-        res.json(results);
+        res.json({alreadyJoined: true});
       }
     })
 
