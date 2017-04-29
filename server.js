@@ -160,14 +160,20 @@ app.post("/eventServices/deleteEvent",
     var userAddObj = req.body;
 
     database.addUserToEvent(userAddObj, function(results){
-      
-      database.getEvent(userAddObj, function(results){
-        //console.log(results)
-        mailer.sendAddUserNotification(results, userAddObj);
+      if(results)
+      {
+        database.getEvent(userAddObj, function(results){
+          //console.log(results)
+          mailer.sendAddUserNotification(results, userAddObj);
+          res.statusCode=200;
+          res.json({alreadyJoined: false});
+        });
+      }
+      else
+      {
         res.statusCode=200;
-        res.send("User Successfully Added to Event");
-
-      });
+        res.json({alreadyJoined: true});
+      }
     })
 
   });
