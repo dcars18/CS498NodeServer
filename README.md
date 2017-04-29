@@ -1,4 +1,4 @@
-Grouper App for CS499
+Grouper App for CS498
 =====================
 
 To build this project install NodeJS and node package manager.
